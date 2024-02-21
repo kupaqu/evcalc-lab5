@@ -16,7 +16,8 @@ public class FitnessFunction implements FitnessEvaluator<double[][]> {
     private int dimension;
 
     public double getFitness(double[][] solution, List<? extends double[][]> list) {
-        return xcollisions(solution) + ycollisions(solution);
+        return xcollisions(solution) + ycollisions(solution) +
+                diagcollisions1(solution) + diagcollisions2(solution);
     }
 
     private double xcollisions(double[][] solution) {
@@ -36,12 +37,47 @@ public class FitnessFunction implements FitnessEvaluator<double[][]> {
                     ones += 1;
                 }
             }
-            sum += Math.abs(ones - 1);;
+            sum += Math.abs(ones - 1);
         }
         return sum;
     }
 
-
+    private double diagcollisions1(double[][] solution) {
+        double sum = 0;
+        for(int k=0; k <= dimension*2; k++) {
+            double ones = 0;
+            for( int y = 0 ; y <= k ; y++ ) {
+                int x = k - y;
+                if( x < dimension && y < dimension ) {
+                    if (solution[x][y] == 1) {
+                        ones += 1;
+                    }
+                }
+            }
+            if (ones>0) {
+                sum += Math.abs(ones - 1);
+            }
+        }
+        return sum;
+    }
+    private double diagcollisions2(double[][] solution) {
+        double sum = 0;
+        for(int k=0; k <= dimension*2; k++) {
+            double ones = 0;
+            for( int y = dimension ; y >= k ; y-- ) {
+                int x = k - y;
+                if( x > dimension && y < dimension ) {
+                    if (solution[x][y] == 1) {
+                        ones += 1;
+                    }
+                }
+            }
+            if (ones>0) {
+                sum += Math.abs(ones - 1);
+            }
+        }
+        return sum;
+    }
 
     public boolean isNatural() {
         return false;
