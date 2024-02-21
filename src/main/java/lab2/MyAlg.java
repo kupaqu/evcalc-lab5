@@ -1,8 +1,10 @@
 package lab2;
 
+import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.*;
 import org.uncommons.watchmaker.framework.operators.EvolutionPipeline;
 import org.uncommons.watchmaker.framework.selection.RouletteWheelSelection;
+import org.uncommons.watchmaker.framework.selection.TournamentSelection;
 import org.uncommons.watchmaker.framework.termination.GenerationCount;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class MyAlg {
         operators.add(new MyMutation(1)); // Mutation
         EvolutionPipeline<double[][]> pipeline = new EvolutionPipeline<double[][]>(operators);
 
-        SelectionStrategy<Object> selection = new RouletteWheelSelection(); // Selection operator
+        SelectionStrategy<Object> selection = new TournamentSelection(new Probability(0.95)); // Selection operator
 
         FitnessEvaluator<double[][]> evaluator = new FitnessFunction(dimension); // Fitness function
 
