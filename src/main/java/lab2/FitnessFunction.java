@@ -41,6 +41,8 @@ public class FitnessFunction implements FitnessEvaluator<double[][]> {
         return sum;
     }
 
+
+
     public boolean isNatural() {
         return false;
     }
