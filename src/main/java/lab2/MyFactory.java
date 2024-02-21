@@ -4,7 +4,7 @@ import org.uncommons.watchmaker.framework.factories.AbstractCandidateFactory;
 
 import java.util.Random;
 
-public class MyFactory extends AbstractCandidateFactory<double[]> {
+public class MyFactory extends AbstractCandidateFactory<double[][]> {
 
     private int dimension;
 
@@ -12,11 +12,14 @@ public class MyFactory extends AbstractCandidateFactory<double[]> {
         this.dimension = dimension;
     }
 
-    public double[] generateRandomCandidate(Random random) {
-        double[] solution = new double[dimension];
-        // x from -5.0 to 5.0
+    public double[][] generateRandomCandidate(Random random) {
+        double[][] solution = new double[dimension][dimension];
 
-        // your implementation:
+        for (int i = 0; i < dimension; i++) {
+            int x = random.nextInt(dimension);
+            int y = random.nextInt(dimension);
+            solution[x][y] = 1;
+        }
 
         return solution;
     }
